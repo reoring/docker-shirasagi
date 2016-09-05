@@ -1,0 +1,24 @@
+rails:
+  build: .
+  environment:
+    - VIRTUAL_HOST=shirasagi.docker # for dinghy
+    - HTTPS_METHOD=noredirect # for dinghy
+    - SERVER_ENV=development
+    - RAILS_ENV=development
+    - DATABASE_HOST=mongo
+  links:
+    - mongo
+  log_opt:
+      max-size: 32m
+      max-file: "5"
+
+mongo:
+  image: mongo:3.3.12
+  ports:
+    - "27018:27017"
+  environment:
+    VIRTUAL_HOST: mongo.shirasagi.docker # for dinghy
+    HTTPS_METHOD: noredirect # for dinghy
+  log_opt:
+      max-size: 32m
+      max-file: "5"
