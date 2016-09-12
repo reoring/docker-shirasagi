@@ -39,7 +39,7 @@ RUN yum makecache
 RUN yum -y install mecab mecab-ipadic
 
 # Install Shirasagi
-RUN git clone --depth 1 https://github.com/shirasagi/opendata /var/www/shirasagi
+RUN git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/shirasagi
 WORKDIR /var/www/shirasagi
 RUN cp -n config/samples/*.{rb,yml} config/
 ADD config/mongoid.yml config/

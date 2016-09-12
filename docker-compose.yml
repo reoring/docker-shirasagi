@@ -1,5 +1,7 @@
 rails:
   build: .
+  hostname: rails
+  container_name: rails
   environment:
     - VIRTUAL_HOST=shirasagi.docker # for dinghy
     - HTTPS_METHOD=noredirect # for dinghy
@@ -16,8 +18,12 @@ rails:
 
 mongo:
   image: mongo:3.3.12
+  hostname: mongo
+  container_name: mongo
   ports:
     - "27018:27017"
+  volumes:
+    - "/data/shirasagi/mongo:/data/db"
   environment:
     VIRTUAL_HOST: mongo.shirasagi.docker # for dinghy
     HTTPS_METHOD: noredirect # for dinghy
