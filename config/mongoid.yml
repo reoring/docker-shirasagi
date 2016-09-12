@@ -31,4 +31,3 @@ development:
 
   # Configure Mongoid specific options. (optional)
   options:
-~
