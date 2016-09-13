@@ -1,4 +1,4 @@
-rails:
+rails-staging:
   build: .
   hostname: rails-staging
   container_name: rails-staging
@@ -18,7 +18,7 @@ rails:
       max-size: 32m
       max-file: "5"
 
-mongo:
+mongo-staging:
   image: mongo:3.3.12
   hostname: mongo-staging
   container_name: mongo-staging
