@@ -23,7 +23,7 @@ mongo-staging:
   hostname: mongo-staging
   container_name: mongo-staging
   ports:
-    - "27018:27017"
+    - "27019:27017"
   volumes:
     - "/data/shirasagi-staging/mongo:/data/db"
   environment:
