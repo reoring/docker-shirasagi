@@ -44,7 +44,6 @@ WORKDIR /var/www/shirasagi
 RUN cp -n config/samples/*.{rb,yml} config/
 ADD config/mongoid.yml config/
 RUN /bin/bash -l -c "bundle --without test development"
-RUN /bin/bash -l -c "bin/deploy"
 
 ENTRYPOINT ["bash", "-l", "-c"]
 CMD ["bundle exec rake unicorn:start && tail -f log/*"]

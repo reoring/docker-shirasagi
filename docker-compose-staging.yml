@@ -1,17 +1,17 @@
 rails:
   build: .
-  hostname: rails
-  container_name: rails
+  hostname: rails-staging
+  container_name: rails-staging
   environment:
     - VIRTUAL_HOST=shirasagi.docker # for dinghy
     - HTTPS_METHOD=noredirect # for dinghy
     - SERVER_ENV=development
     - RAILS_ENV=development
-    - DATABASE_HOST=mongo
+    - DATABASE_HOST=mongo-staging
   volumes:
-    - "/data/shirasagi-staging/public:/var/www/shirasagi/public"
+    - "/data/shirasagi/public:/var/www/shirasagi/public"
   ports:
-    - "80:3000"
+    - "8080:3000"
   links:
     - mongo
   log_opt:
@@ -20,12 +20,12 @@ rails:
 
 mongo:
   image: mongo:3.3.12
-  hostname: mongo
-  container_name: mongo
+  hostname: mongo-staging
+  container_name: mongo-staging
   ports:
     - "27018:27017"
   volumes:
-    - "/data/shirasagi/mongo:/data/db"
+    - "/data/shirasagi-staging/mongo:/data/db"
   environment:
     VIRTUAL_HOST: mongo.shirasagi.docker # for dinghy
     HTTPS_METHOD: noredirect # for dinghy
