@@ -11,7 +11,7 @@ rails:
   volumes:
     - "/data/shirasagi-staging/public:/var/www/shirasagi/public"
   ports:
-    - "80:3000"
+    - "8080:80"
   links:
     - mongo
   log_opt:

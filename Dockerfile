@@ -9,6 +9,7 @@ RUN yum -y install curl git which tar
 RUN sed -i '0,/enabled=.*/{s/enabled=.*/enabled=1/}' /etc/yum.repos.d/CentOS-Base.repo
 RUN wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm && rpm -ivh epel-release-7-8.noarch.rpm
 RUN yum update -y
+RUN yum -y install nginx
 
 # Install rbenv and ruby-build
 RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
@@ -43,7 +44,17 @@ RUN git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/ww
 WORKDIR /var/www/shirasagi
 RUN cp -n config/samples/*.{rb,yml} config/
 ADD config/mongoid.yml config/
+ADD config/unicorn.rb config/
 RUN /bin/bash -l -c "bundle --without test development"
+RUN /bin/bash -l -c "bundle exec rake assets:precompile"
+
+ADD config/nginx.conf /etc/nginx/conf.d/
+ADD config/default-nginx.conf /etc/nginx/nginx.conf
+
+# CMD ["bundle exec rake unicorn:start && tail -f log/*"]
+
+ADD start.sh /var/www/shirasagi
+RUN chmod +x start.sh
 
 ENTRYPOINT ["bash", "-l", "-c"]
-CMD ["bundle exec rake unicorn:start && tail -f log/*"]
+CMD ["/var/www/shirasagi/start.sh"]
