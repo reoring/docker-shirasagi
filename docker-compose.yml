@@ -9,9 +9,9 @@ rails:
     - RAILS_ENV=development
     - DATABASE_HOST=mongo
   volumes:
-    - "/data/shirasagi-staging/public:/var/www/shirasagi/public"
+    - "/data/shirasagi/public:/var/www/shirasagi/public"
   ports:
-    - "8080:80"
+    - "80:80"
   links:
     - mongo
   log_opt:
